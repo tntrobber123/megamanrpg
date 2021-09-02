@@ -1,36 +1,30 @@
-""" This is supposed to take a limit(x) and a limit(y) for the levels, and the current pos (x) and current pos (y) not entirely sure how define works..."""
+import pygame
+import constants
+import time
+black = (0,0,0)
+from spritesheet_functions import SpriteSheet
 
-def setlvl(currentlvl, nextlvl):
-    global currnet_level_no
-    global player
-    if current_level_no == currentlvl:
-            current_level_no = nextlvl
-            current_level = level_list[current_level_no]
-            player.level = current_level
+SCREEN_WIDTH  = 1400
+SCREEN_HEIGHT = 550
+
+size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
+screen = pygame.display.set_mode(size)
+sprite_sheetd = SpriteSheet("p1_walk_f.png")
+def imgloadf(x1, y1, x2, y2):
+    image = sprite_sheetd.get_image(x1, y1, x2, y2)
+    walking_frames_d.append(image)
     
-    
-def lvlchange(limitx, limity, currentx, currenty):
-    if currentx < limitx and currenty < limity:
-        setlvl(0, 1)
-        setlvl(1,2)
-        setlvl(2,3)
-                
-lvlchange (current_level.level_limitx, current_level.level_limity, current_postionx, current_positiony)
+walking_frames_d = [] 
 
 
+imgloadf(0, 0, 58, 72)
 
-#old level change meathod. just in case
+x = 0
 
-        """if current_positionx < current_level.level_limitx and current_positiony < current_level.level_limity:
-            if current_level_no == 0:
-                current_level_no = 3
-                current_level = level_list[current_level_no]
-                player.level = current_level
-            elif current_level_no == 3:
-                current_level_no = 1
-                current_level = level_list[current_level_no]
-                player.level = current_level
-            else: 
-                current_level_no = 2
-                current_level = level_list[current_level_no]
-                player.level = current_level"""
+while True:
+    surf = walking_frames_d[x]
+    screen.fill(black)
+    screen.blit(surf, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+    pygame.display.flip()
+    x += 1
+    time.sleep(1)

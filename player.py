@@ -1,6 +1,5 @@
 import pygame
 import constants
-from platforms import MovingPlatform
 from spritesheet_functions import SpriteSheet
 
 class Player(pygame.sprite.Sprite):
@@ -20,8 +19,11 @@ class Player(pygame.sprite.Sprite):
     def imgloady(self, x1, y1, x2, y2):
         image = self.sprite_sheetl.get_image(x1, y1, x2, y2)
         self.walking_frames_l.append(image)
+        
+    def imgloadf(self, x1, y1, x2, y2):
+        image = self.sprite_sheetd.get_image(x1, y1, x2, y2)
+        self.walking_frames_d.append(image)
     
-    # -- Methods
     def __init__(self):
         """ Constructor function """
         # This holds all the images for the animated walk left/right of our player
@@ -29,73 +31,80 @@ class Player(pygame.sprite.Sprite):
         self.walking_frames_r = []
         self.walking_frames_u = []
         self.walking_frames_d = []
+        self.walking_frames_reg = []
     
         # Call the parent's constructor
         pygame.sprite.Sprite.__init__(self)
         self.sprite_sheet = SpriteSheet("p1_walk_lr.png")
         self.sprite_sheetud = SpriteSheet("p1_walk.png")
+        self.sprite_sheete = SpriteSheet("p1_walk1.png")
         self.sprite_sheetl = SpriteSheet("p1_walk_l.png")
-       
-        # Load all the right facing images into a list
+        self.sprite_sheetd = SpriteSheet("p1_walk_f.png")
         
-        self.imgloadr(138, 177, 199, 236)
-        self.imgloadr(69, 177, 138, 236)
-        self.imgloadr(0, 177, 69, 236)
-        self.imgloadr(138, 121, 199, 177)
-        self.imgloadr(69, 121, 138, 177)
-        self.imgloadr(0, 121, 69, 177)
-        self.imgloadr(138, 60, 199, 121)
-        self.imgloadr(69, 60, 138, 121)
-        self.imgloadr(0, 60, 69, 121)
-        self.imgloadr(138, 0, 199, 60)
-        self.imgloadr(69, 0, 138, 60)
+        # Load the right facing images
+        self.imgloadr(138, 177, 199, 136)
+        self.imgloadr(69, 177, 58, 136)
+        self.imgloadr(0, 177, 69, 136)
+        self.imgloadr(138, 121, 199, 58)
+        self.imgloadr(69, 121, 60, 58)
+        self.imgloadr(0, 121, 69, 58)
+        self.imgloadr(138, 60, 60, 60)
+        self.imgloadr(69, 60, 75, 60)
+        self.imgloadr(0, 60, 69, 60)
+        self.imgloadr(138, 0, 69, 60)
+        self.imgloadr(69, 0, 69, 60)
         self.imgloadr(0, 0, 69, 60)
         # Left
-        self.imgloady(138, 177, 199, 236)
-        self.imgloady(69, 177, 138, 236)
-        self.imgloady(0, 177, 69, 236)
-        self.imgloady(138, 121, 199, 177)
-        self.imgloady(69, 121, 138, 177)
-        self.imgloady(0, 121, 69, 177)
-        self.imgloady(138, 60, 199, 121)
-        self.imgloady(69, 60, 138, 121)
-        self.imgloady(0, 60, 69, 121)
-        self.imgloady(138, 0, 199, 60)
-        self.imgloady(69, 0, 138, 60)
-        self.imgloady(0, 0, 69, 60)
+        self.imgloady(138, 177, 60, 136)
+        self.imgloady(69, 177, 58, 136)
+        self.imgloady(0, 177, 60, 136)
+        self.imgloady(138, 121, 99, 58)
+        self.imgloady(69, 121, 60, 58)
+        self.imgloady(0, 121, 60, 58)
+        self.imgloady(138, 60, 60, 60)
+        self.imgloady(69, 60, 60, 60)
+        self.imgloady(0, 60, 60, 60)
+        self.imgloady(138, 0, 60, 60)
+        self.imgloady(69, 0, 60, 60)
+        self.imgloady(0, 0, 60, 60)
         
         # Load the backward facing images
-        image = self.sprite_sheetud.get_image(0, 0, 68, 72)
+        image = self.sprite_sheetud.get_image(0, 0, 68, 70)
         self.walking_frames_u.append(image) 
-        image = self.sprite_sheetud.get_image(68, 0, 131, 72)
+        image = self.sprite_sheetud.get_image(70, 0, 68, 70)
         self.walking_frames_u.append(image) 
-        image = self.sprite_sheetud.get_image(131, 0, 199, 72)
+        image = self.sprite_sheetud.get_image(131, 0, 68, 75)
         self.walking_frames_u.append(image) 
-        image = self.sprite_sheetud.get_image(0, 72, 68, 145)
+        image = self.sprite_sheetud.get_image(0, 70, 68, 75)
         self.walking_frames_u.append(image) 
-        image = self.sprite_sheetud.get_image(68, 72, 141, 145)
+        image = self.sprite_sheetud.get_image(70, 70, 65, 75)
         self.walking_frames_u.append(image) 
-        image = self.sprite_sheetud.get_image(0, 62, 135, 145)
+        image = self.sprite_sheetud.get_image(0, 70, 68, 75)
         self.walking_frames_u.append(image) 
-        image = self.sprite_sheetud.get_image(131, 72, 199, 145)
+        image = self.sprite_sheetud.get_image(131, 70, 68, 75)
         self.walking_frames_u.append(image) 
-        image = self.sprite_sheetud.get_image(0, 145, 68, 219)
+        image = self.sprite_sheetud.get_image(0, 150, 60, 70)
         self.walking_frames_u.append(image) 
-        image = self.sprite_sheetud.get_image(68, 145, 131, 219)
+        image = self.sprite_sheetud.get_image(70, 150, 60, 70)
         self.walking_frames_u.append(image) 
-        image = self.sprite_sheetud.get_image(131, 145, 199, 200)
+        image = self.sprite_sheetud.get_image(131, 150, 60, 70)
         self.walking_frames_u.append(image) 
-        image = self.sprite_sheetud.get_image(0, 219, 68, 290)
+        image = self.sprite_sheetud.get_image(0, 220, 60, 150)
         self.walking_frames_u.append(image) 
-        image = self.sprite_sheetud.get_image(68, 220, 131, 290)
-        self.walking_frames_u.append(image) 
+        image = self.sprite_sheetud.get_image(68, 220, 60, 150)
+        self.walking_frames_u.append(image)
         
         # Load the forward facing images
-        image = self.sprite_sheetud.get_image(0, 0, 68, 72)
-        self.walking_frames_d.append(image) 
+        self.imgloadf(58, 0, 58, 72)
+        self.imgloadf(115, 0,170, 72)
+        self.imgloadf(0, 72, 56, 143)
+        self.imgloadf(58, 72, 144, 143)
+        
+        image = self.sprite_sheetud.get_image(0, 0, 58, 72)
+        self.walking_frames_reg.append(image)
 
         # Set the image the player starts with
-        self.image = self.walking_frames_d[0]
+        self.image = self.walking_frames_reg[0]
         self.rect = self.image.get_rect()
 
     def update(self):
@@ -112,10 +121,10 @@ class Player(pygame.sprite.Sprite):
             frame = (pos // 30) % len(self.walking_frames_l)
             self.image = self.walking_frames_l[frame]
         elif self.direction == "U":
-            frame = (pos // 30) % len(self.walking_frames_u)
+            frame = (self.rect.y // 30) % len(self.walking_frames_u)
             self.image = self.walking_frames_u[frame]
         elif self.direction == "D":
-            frame = (pos // 30) % len(self.walking_frames_d)
+            frame = (self.rect.y // 30) % len(self.walking_frames_d)
             self.image = self.walking_frames_d[frame]
             
         self.rect.y += self.change_y
@@ -149,9 +158,6 @@ class Player(pygame.sprite.Sprite):
             # Stop our vertical movement
             self.change_y = 0
 
-            if isinstance(block, MovingPlatform):
-                self.rect.x += block.change_x
-
         if self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
             self.change_y = 0
             self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
@@ -165,16 +171,16 @@ class Player(pygame.sprite.Sprite):
         self.direction = "R"
         
     def go_up(self):
-        self.change_y = -3
+        self.change_y = -4
         self.direction = "U"
     
     def go_down(self):
-        self.change_y = 3
+        self.change_y = 4
         self.direction = "D"
 
     def stop(self):
         pygame.sprite.Sprite.__init__(self)
         self.change_x = 0
         self.change_y = 0
-        sprite_sheet = SpriteSheet("p1_walk.png")
-        sprite_sheet.get_image(0, 0, 68, 72)
+        frame = self.walking_frames_reg
+        self.image = self.walking_frames_reg[0]

@@ -8,12 +8,12 @@ class Level():
     
     # How far this world has been scrolled left/right
     world_shift = 0
+    world_shifty = 1
     level_limitx = -1000
     level_limity = 250
     
     def __init__(self, player):
         self.platform_list = pygame.sprite.Group()
-        self.enemy_list = pygame.sprite.Group()
         self.player = player
 
     # Update everything on this level
@@ -24,22 +24,25 @@ class Level():
     def draw(self, screen):
         """ Draw everything on this level. """
 
-        # Draw the background
-        # We don't shift the background as much as the sprites are shifted
+        # Draw/Shift the background
         screen.fill(constants.BLACK)
-        screen.blit(self.background,(self.world_shift // 3,0))
+        screen.blit(self.background,(self.world_shift // 3, self.world_shifty))
 
         # Draw all the sprite lists that we have
         self.platform_list.draw(screen)
 
     def shift_world(self, shift_x):
-
         # Keep track of the shift amount
         self.world_shift += shift_x
-
         # Go through all the sprite lists and shift
         for platform in self.platform_list:
             platform.rect.x += shift_x
+            
+            
+    def shift_worldy(self, shift_y):
+        self.world_shifty += shift_y
+        for platform in self.platform_list:
+            platform.rect.y += shift_y
 
 # Create platforms for the level
 class Level_01(Level):
@@ -114,18 +117,6 @@ class Level_02(Level):
             block.rect.y = platform[2]
             block.player = self.player
             self.platform_list.add(block)
-
-        # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.STONE_PLATFORM_MIDDLE)
-        block.rect.x = 1500
-        block.rect.y = 300
-        block.boundary_top = 100
-        block.boundary_bottom = 550
-        block.change_y = -1
-        block.player = self.player
-        block.level = self
-        self.platform_list.add(block)
-        
         
         # Create platforms for the level
 class Level_03(Level):

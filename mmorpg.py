@@ -30,8 +30,8 @@ def main():
     active_sprite_list = pygame.sprite.Group()
     player.level = current_level
 
-    player.rect.x = 340
-    player.rect.y = 15
+    player.rect.x = 100
+    player.rect.y = 200
     active_sprite_list.add(player)
     
     while not done:
@@ -62,7 +62,8 @@ def main():
             diff = player.rect.x - 1000
             player.rect.x = 1000
             current_level.shift_world(-diff)
-
+        current_positionx = player.rect.x + current_level.world_shift
+        current_positiony = player.rect.y   
         # If player gets near the left side, shift the world right (+x)
         if player.rect.x <= 120:
             diff = 120 - player.rect.x
@@ -70,6 +71,21 @@ def main():
             current_level.shift_world(diff)
         current_positionx = player.rect.x + current_level.world_shift
         current_positiony = player.rect.y 
+        
+        # If player gets near the top, shift the world up (+y)
+        if player.rect.y <= 1:
+            diff = 1 - player.rect.y
+            player.rect.y = 1
+            current_level.shift_worldy(diff)
+        current_positionx = player.rect.x
+        current_positiony = player.rect.y + current_level.world_shifty      
+
+        if player.rect.y >= 460:
+            diff = 460 - player.rect.y
+            player.rect.y = 460
+            current_level.shift_worldy(diff)
+        current_positionx = player.rect.x
+        current_positiony = player.rect.y + current_level.world_shifty
         
         # Change the level
         if current_positionx < current_level.level_limitx and current_positiony < current_level.level_limity:

@@ -37,13 +37,15 @@ def main():
     
     move = 0
     randenc = random.randint(5, 50)
-
+    
+    enemy = []
+    enemy.append("sniper joe")
+    enemy.append("boss")
+    enemy.append("met")
     php = 10
     pdmg = 5
     pnrg = 5
-
-    ehp = 10
-    edmg = 5
+    ehp = 0
     
     while not done:
         for event in pygame.event.get():
@@ -60,22 +62,49 @@ def main():
                 if event.key == pygame.K_DOWN:
                     player.go_down()
                 if event.key == pygame.K_ESCAPE:
-                    pygame.QUIT()
+                    pygame.quit()
         
             if event.type == pygame.KEYUP:
                 player.stop()  
         
         """CODE FOR RANDOM ENCOUNTERS GOES HERE"""
+        if php == 0:
+            pygame.quit()
         if player.steps > randenc:
-            enemy = []
-            enemy.append("sniper joe")
-            enemy.append("boss")
-            enemy.append("met")
+            methp = 5
+            sjhp = 10
+            bosshp = 20
             
             elist = random.randint(0, 2)
             if php > 0 or ehp > 0:
                 eprint = enemy[elist]
-                print("You are attacked by a", (eprint) )
+                print("You are attacked by a", (eprint))
+                if elist == 0:
+                    ehp = methp
+                    edmg = 1
+                elif elist == 1:
+                    ehp = sjhp
+                    edmg = 2
+                else:
+                    ehp = bosshp
+                    edmg = 3
+                    
+                while php > 0 and ehp > 0:
+                    if elist == 0:
+                        metimg = pygame.image.load('met.jpeg')
+                        screen.blit(metimg, (50, 50))
+                        pygame.display.flip()
+                    print("mega punch:a (5 damage)")
+                    print("mega buster:b (10 damage)")
+                    attack = input()
+                    if attack == "a":
+                        ehp -= 5
+                    if attack == "b":
+                        ehp -= 10
+                    php = php - 1
+                    print(ehp, "enemy hit points")
+                    print(php, "my hit points")
+                print("he ded")
                 
             player.steps = 0
                 

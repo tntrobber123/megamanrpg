@@ -6,6 +6,8 @@ class Player(pygame.sprite.Sprite):
     # Set speed vector of player
     change_x = 0
     change_y = 0
+    steps = 0
+    change_steps = 0
     
     direction = "D"
 
@@ -37,7 +39,6 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.sprite_sheet = SpriteSheet("p1_walk_lr.png")
         self.sprite_sheetud = SpriteSheet("p1_walk.png")
-        self.sprite_sheete = SpriteSheet("p1_walk1.png")
         self.sprite_sheetl = SpriteSheet("p1_walk_l.png")
         self.sprite_sheetd = SpriteSheet("p1_walk_f.png")
         
@@ -144,7 +145,7 @@ class Player(pygame.sprite.Sprite):
         # Move up/down
         
         self.rect.y += self.change_y
-
+        self.steps += self.change_steps
         # Check and see if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
@@ -164,23 +165,28 @@ class Player(pygame.sprite.Sprite):
 
     def go_left(self):
         self.change_x = -4
+        self.change_steps = 1
         self.direction = "L"
 
     def go_right(self):
         self.change_x = 4
+        self.change_steps = 1
         self.direction = "R"
         
     def go_up(self):
         self.change_y = -4
+        self.change_steps = 1
         self.direction = "U"
     
     def go_down(self):
         self.change_y = 4
+        self.change_steps = 1
         self.direction = "D"
 
     def stop(self):
         pygame.sprite.Sprite.__init__(self)
         self.change_x = 0
         self.change_y = 0
+        self.change_steps = 0
         frame = self.walking_frames_reg
         self.image = self.walking_frames_reg[0]

@@ -2,6 +2,7 @@ import pygame
 import constants
 import levels
 import time
+import random
 from spritesheet_functions import SpriteSheet
 from player import Player
 
@@ -34,6 +35,16 @@ def main():
     player.rect.y = 200
     active_sprite_list.add(player)
     
+    move = 0
+    randenc = random.randint(5, 50)
+
+    php = 10
+    pdmg = 5
+    pnrg = 5
+
+    ehp = 10
+    edmg = 5
+    
     while not done:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -50,9 +61,23 @@ def main():
                     player.go_down()
                 if event.key == pygame.K_ESCAPE:
                     pygame.QUIT()
-                    
+        
             if event.type == pygame.KEYUP:
                 player.stop()  
+        
+        """CODE FOR RANDOM ENCOUNTERS GOES HERE"""
+        if player.steps > randenc:
+            enemy = []
+            enemy.append("sniper joe")
+            enemy.append("boss")
+            enemy.append("met")
+            
+            elist = random.randint(0, 2)
+            if php > 0 or ehp > 0:
+                eprint = enemy[elist]
+                print("You are attacked by a", (eprint) )
+                
+            player.steps = 0
                 
         active_sprite_list.update()
         current_level.update()

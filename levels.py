@@ -55,13 +55,13 @@ class Level_01(Level):
 
         self.background = pygame.image.load("background_01.png").convert()
         self.background.set_colorkey(constants.WHITE)
-        self.level_limitx = -1500
-        self.level_limity = 250
+        self.level_limitx = -500
+        self.level_limity = 500
 
         # Array with type of platform, and x, y location of the platform.
         level = [ 
                   #Main platforms ingame
-                  [platforms.GRASS_LEFT, 500, 530],
+                  [platforms.GRASS_LEFT, 1000, 250],
                   [platforms.GRASS_MIDDLE, 570, 530],
                   [platforms.GRASS_RIGHT, 640, 530],
                   [platforms.GRASS_LEFT, 800, 400],
@@ -169,7 +169,7 @@ class Level_04(Level):
         self.level_limity = 250
 
         # Array with type of platform, and x, y location of the platform.
-        level = [ 
+        level = [
                   #Main platforms ingame
                   [platforms.GRASS_LEFT, 500, 530],
                   [platforms.GRASS_MIDDLE, 570, 530],
@@ -180,7 +180,7 @@ class Level_04(Level):
                   [platforms.GRASS_RIGHT, 1010, 400],
                   [platforms.GRASS_LEFT, 1000, 530],
                   [platforms.GRASS_MIDDLE, 1070, 530],
-                  [platforms.GRASS_RIGHT, 1140, 530],
+                  [platforms.GRASS_RIGHT, 1140, 530]
                   ]
 
 

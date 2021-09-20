@@ -19,6 +19,7 @@ print("I am SEMBLANCE, Megamans AI subconscious.")
 time.sleep(.5)
 print("Are you ready?")
 time.sleep(.5)
+print("Use the arrow keys to walk around. Press i to open your inventory and check stats, and press enter to use an item.")
 
 def main():
     """ Main Program """
@@ -56,7 +57,9 @@ def main():
     enemy.append("met")
     enemy.append("boss")
     enemy.append("sniper joe")
+    
     php = 10
+    pnrg = 5
     pdmg = 5
     pexp = 0
     plvl = 1
@@ -64,6 +67,8 @@ def main():
     ehp = 0
     
     inventory = []
+    inventory.append("Small HP ball")
+    inventory.append("Small energy ball")
     invslot = 0
     
     while not done:
@@ -88,6 +93,8 @@ def main():
                     # Inventory
                 if event.key == pygame.K_i:
                     x = 0
+                    print("HP:", php)
+                    print("Energy:", pnrg)
                     print("Your inventory contains:")
                     for i in range(len(inventory)):
                         print(x, inventory[invslot])
@@ -102,17 +109,21 @@ def main():
                         invslot += 1
                         x += 1
                         
-                    print("Use what item?")
-                    slot = 0
+                    slot = "Use what item?"
                     item_use = input(slot)
                     if slot == 0:
-                        php += 1000
+                        if inventory[0] == ("Small HP ball"):
+                            php += 5
+                            inventory.pop(0)
+                        else:
+                            php += 10
+                            inventory.pop(0)
         
             if event.type == pygame.KEYUP:
                 player.stop()  
                 invslot = 0
         
-        """CODE FOR RANDOM ENCOUNTERS GOES HERE"""
+        # Random encounters (working)
         if php == 0:
             pygame.quit()
         if player.steps > randenc:
@@ -127,7 +138,7 @@ def main():
                 if elist == 0:
                     ehp = methp
                     edmg = 1
-                    loot = 0 #random.randint(0, 1)
+                    loot = random.randint(0, 2)
                     if loot == 0:
                         inventory.append(commonloot[random.randint(0, 8)])
                     else:
@@ -135,7 +146,7 @@ def main():
                 elif elist == 1:
                     ehp = sjhp
                     edmg = 2
-                    loot = 0 #random.randint(0, 1)
+                    loot = random.randint(0, 2)
                     if loot == 0:
                         inventory.append(commonloot[random.randint(0, 8)])
                     else:

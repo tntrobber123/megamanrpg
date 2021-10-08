@@ -188,5 +188,6 @@ class Player(pygame.sprite.Sprite):
         self.change_x = 0
         self.change_y = 0
         self.change_steps = 0
-        frame = self.walking_frames_reg
+        image = self.sprite_sheetud.get_image(0, 0, 58, 72)
+        self.walking_frames_reg.append(image)
         self.image = self.walking_frames_reg[0]

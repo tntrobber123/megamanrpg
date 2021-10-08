@@ -101,6 +101,8 @@ def main():
                         invslot += 1
                         x += 1
                         
+                # Use items
+                
                 if event.key == pygame.K_RETURN:
                     x = 0
                     print("Your inventory contains:")
@@ -111,16 +113,33 @@ def main():
                         
                     slot = "Use what item?"
                     item_use = input(slot)
-                    if slot == 0:
-                        if inventory[0] == ("Small HP ball"):
+                    if item_use == "0":
+                        print("ok")
+                        if inventory[0] == ["Small HP ball"]:
                             php += 5
                             inventory.pop(0)
-                        else:
-                            php += 10
+                            print("ok")
+                            print("HP:", php)
+                        elif inventory[0] == ["Large HP ball"]:
+                            php += 15
                             inventory.pop(0)
+                            print("HP:", php)
+                        elif inventory[0] == ["small energy ball"]:
+                            pnrg += 5
+                            inventory.pop(0)
+                            print("Energy:", pnrg)
+                        elif inventory[0] == ["small energy ball"]:
+                            pnrg += 5
+                            inventory.pop(0)
+                            print("Energy:", pnrg)
+                        elif inventory[0] == ["Large energy ball"]:
+                            pnrg += 15
+                            inventory.pop(0)
+                            print("Energy:", pnrg)
+
         
             if event.type == pygame.KEYUP:
-                player.stop()  
+                player.stop()
                 invslot = 0
         
         # Random encounters (working)
@@ -155,7 +174,7 @@ def main():
                 while php > 0 and ehp > 0:
                     if elist == 0:
                         metimg = pygame.image.load('met.jpeg')
-                        screen.blit(metimg, (50, 50))
+                        screen.blit(metimg, (0, 0))
                         pygame.display.flip()
                     print("mega punch:a (5 damage)")
                     print("mega buster:b (10 damage)")

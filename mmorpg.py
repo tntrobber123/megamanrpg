@@ -68,7 +68,9 @@ def main():
     
     inventory = []
     inventory.append("Small HP ball")
-    inventory.append("Small energy ball")
+    inventory.append("Small HP ball")
+    inventory.append("Small Energy ball")
+    inventory.append("e-tank")
     invslot = 0
     
     while not done:
@@ -102,7 +104,6 @@ def main():
                         x += 1
                         
                 # Use items
-                
                 if event.key == pygame.K_RETURN:
                     x = 0
                     print("Your inventory contains:")
@@ -110,33 +111,63 @@ def main():
                         print(x, inventory[invslot])
                         invslot += 1
                         x += 1
-                        
-                    slot = "Use what item?"
-                    item_use = input(slot)
-                    if item_use == "0":
-                        print("ok")
-                        if inventory[0] == ["Small HP ball"]:
+                    slot = "Use what item? :]"
+                    g = input(slot)
+                    
+                    
+                    
+                    if g == "0":
+                        g = 0
+                    if g == "1":
+                        g = 1
+                    if g == "2":
+                        g = 2
+                    if g == "3":
+                        g = 3
+                    if g == "3":
+                        g = 4
+                    if g == "5":
+                        g = 5
+                    if g == "6":
+                        g = 6
+                    if g == "7":
+                        g = 7
+                    if g == "8":
+                        g = 8
+                    if g == "9":
+                        g = 9
+                    
+                    if g > len(inventory):
+                        print("that item is nonexistant, stupid!")
+                        break
+                    
+                    e = 0
+                    while e == 0:
+                        if inventory[g] == ("Small HP ball"):
                             php += 5
-                            inventory.pop(0)
-                            print("ok")
+                            inventory.pop(g)
                             print("HP:", php)
-                        elif inventory[0] == ["Large HP ball"]:
+                            e = 1
+                        elif inventory[g] == ("Large HP ball"):
                             php += 15
-                            inventory.pop(0)
+                            inventory.pop(g)
                             print("HP:", php)
-                        elif inventory[0] == ["small energy ball"]:
+                            e = 1
+                        elif inventory[g] == ("Small Energy ball"):
                             pnrg += 5
-                            inventory.pop(0)
+                            inventory.pop(g)
                             print("Energy:", pnrg)
-                        elif inventory[0] == ["small energy ball"]:
-                            pnrg += 5
-                            inventory.pop(0)
-                            print("Energy:", pnrg)
-                        elif inventory[0] == ["Large energy ball"]:
+                            e = 1
+                        elif inventory[g] == ("Large Energy ball"):
                             pnrg += 15
-                            inventory.pop(0)
+                            inventory.pop(g)
                             print("Energy:", pnrg)
-
+                            e = 1
+                        elif inventory[g] == ("e-tank"):
+                            php += 50
+                            inventory.pop(g)
+                            print("HP:", php)
+                            e = 1
         
             if event.type == pygame.KEYUP:
                 player.stop()
@@ -157,7 +188,7 @@ def main():
                 if elist == 0:
                     ehp = methp
                     edmg = 1
-                    loot = random.randint(0, 2)
+                    loot = random.randint(0, 1)
                     if loot == 0:
                         inventory.append(commonloot[random.randint(0, 8)])
                     else:
@@ -165,12 +196,13 @@ def main():
                 elif elist == 1:
                     ehp = sjhp
                     edmg = 2
-                    loot = random.randint(0, 2)
+                    loot = random.randint(0, 1)
                     if loot == 0:
                         inventory.append(commonloot[random.randint(0, 8)])
                     else:
                         pass
                     
+                    # Fights
                 while php > 0 and ehp > 0:
                     if elist == 0:
                         metimg = pygame.image.load('met.jpeg')

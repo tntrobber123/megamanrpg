@@ -59,21 +59,36 @@ def main():
     enemy.append("sniper joe")
     
     php = 10
+    maxhp = 15
     pnrg = 5
     pdmg = 5
-    pexp = 0
+    pxp = 0
     plvl = 1
     pnxtlvl = 15
     ehp = 0
+    exp = 0
     
     inventory = []
     inventory.append("Small HP ball")
-    inventory.append("Small HP ball")
     inventory.append("Small Energy ball")
-    inventory.append("e-tank")
     invslot = 0
     
     while not done:
+        # Level up function
+        if pxp >= pnxtlvl:
+            pxp = 0
+            plvl += 1
+            if plvl < 15:
+                maxhp += 15
+            if plvl >= 15:
+                maxhp *= mod
+            pnxtlvl = maxhp * mod
+            
+        mod = (plvl / 10) + 1
+            
+        if php > maxhp:
+            php = maxhp
+        
         if ehp < 0:
             ehp = 0
         for event in pygame.event.get():
@@ -92,11 +107,21 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     
-                    # Inventory
+                    # CHEATKODES FOR TESTING THE GAME!!!!
+                if event.key == pygame.K_3:
+                    cheat_code = input()
+                    if cheat_code == "lvl.up":
+                        pxp += 15
+                        
+                        # Inventory
                 if event.key == pygame.K_i:
                     x = 0
+                    print("____________________________________________")
                     print("HP:", php)
+                    print("Max HP:", maxhp)
                     print("Energy:", pnrg)
+                    print("XP:", exp)
+                    print("Level:", plvl)
                     print("Your inventory contains:")
                     for i in range(len(inventory)):
                         print(x, inventory[invslot])
@@ -106,6 +131,7 @@ def main():
                 # Use items
                 if event.key == pygame.K_RETURN:
                     x = 0
+                    print("____________________________________________")
                     print("Your inventory contains:")
                     for i in range(len(inventory)):
                         print(x, inventory[invslot])
@@ -163,7 +189,7 @@ def main():
                             inventory.pop(g)
                             print("Energy:", pnrg)
                             e = 1
-                        elif inventory[g] == ("e-tank"):
+                        elif inventory[g] == ("e-TANK"):
                             php += 50
                             inventory.pop(g)
                             print("HP:", php)
@@ -185,20 +211,32 @@ def main():
             if php > 0 or ehp > 0:
                 eprint = enemy[elist]
                 print("You are attacked by a", (eprint))
+                
                 if elist == 0:
                     ehp = methp
                     edmg = 1
+                    exp = 5
                     loot = random.randint(0, 1)
                     if loot == 0:
-                        inventory.append(commonloot[random.randint(0, 8)])
+                        lootie = commonloot[random.randint(0, 8)]
                     else:
                         pass
                 elif elist == 1:
                     ehp = sjhp
                     edmg = 2
+                    exp = 10
                     loot = random.randint(0, 1)
                     if loot == 0:
-                        inventory.append(commonloot[random.randint(0, 8)])
+                        lootie = commonloot[random.randint(0, 8)]
+                    else:
+                        pass
+                elif elist == 2:
+                    ehp = bosshp
+                    edmg = 5
+                    exp = 15
+                    loot = random.randint(0, 1)
+                    if loot == 0:
+                        lootie = rareloot[random.randint(0, 8)]
                     else:
                         pass
                     
@@ -219,6 +257,11 @@ def main():
                     print(ehp, "enemy hit points")
                     print(php, "my hit points")
                 print("he ded")
+                pxp += exp
+                print("You earned", exp, "XP!")
+                if loot == 0:
+                    print("WOWZA! He dropped a", lootie)
+                    inventory.append(lootie)
                 
             player.steps = 0
                 
@@ -239,7 +282,6 @@ def main():
             current_level.shift_world(diff)
         current_positionx = player.rect.x + current_level.world_shift
         current_positiony = player.rect.y 
-        
         # If player gets near the top, shift the world up (+y)
         if player.rect.y <= 1:
             diff = 1 - player.rect.y
@@ -247,7 +289,7 @@ def main():
             current_level.shift_worldy(diff)
         current_positionx = player.rect.x
         current_positiony = player.rect.y + current_level.world_shifty      
-
+        # If player gets near the bottom, shift the world down (-y)
         if player.rect.y >= 460:
             diff = 460 - player.rect.y
             player.rect.y = 460

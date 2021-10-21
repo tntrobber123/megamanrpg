@@ -12,14 +12,10 @@ from loottable import bossloot
 from spritesheet_functions import SpriteSheet
 from player import Player
 
-time.sleep(.5)
-print("Welcome to the Megaman RPG game!")
-time.sleep(.5)
-print("I am SEMBLANCE, Megamans AI subconscious.")
-time.sleep(.5)
-print("Are you ready?")
-time.sleep(.5)
+print("Welcome to Mega Man: Overtaken RPG!")
+print("I am SEMBLANCE, Mega Mans AI subconscious. you will use me to controll Mega Man and his actions")
 print("Use the arrow keys to walk around. Press i to open your inventory and check stats, and press enter to use an item.")
+print("_______________________________________________________________________")
 
 def main():
     """ Main Program """
@@ -78,6 +74,7 @@ def main():
         if pxp >= pnxtlvl:
             pxp = 0
             plvl += 1
+            print("Holy smokes! You leveled up!")
             if plvl < 15:
                 maxhp += 15
             if plvl >= 15:
@@ -111,7 +108,11 @@ def main():
                 if event.key == pygame.K_3:
                     cheat_code = input()
                     if cheat_code == "lvl.up":
-                        pxp += 15
+                        plvl += 1
+                    if cheat_code == "item.rain":
+                        inventory.append("Small HP ball")
+                        inventory.append("Small Energy ball")
+                        inventory.append("e-TANK")
                         
                         # Inventory
                 if event.key == pygame.K_i:
@@ -121,6 +122,7 @@ def main():
                     print("Max HP:", maxhp)
                     print("Energy:", pnrg)
                     print("XP:", exp)
+                    print("XP till levelup:", pnxtlvl - pxp)
                     print("Level:", plvl)
                     print("Your inventory contains:")
                     for i in range(len(inventory)):
